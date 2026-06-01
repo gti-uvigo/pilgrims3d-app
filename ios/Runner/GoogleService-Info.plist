@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>879057736072-rjbffg5bn052ov8o7ju65cl993kldmp8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.879057736072-rjbffg5bn052ov8o7ju65cl993kldmp8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>879057736072-immoprcetchqk6c79ldsud0scmnu0vnu.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA9jFGUwqMjOif1NC9MYeKez8vY0iq9gNM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>879057736072</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>-dbigdata.space.arFlutter</string>
+	<key>PROJECT_ID</key>
+	<string>camino-57345</string>
+	<key>STORAGE_BUCKET</key>
+	<string>camino-57345.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:879057736072:ios:a9a4412bdc853c6ce66a3d</string>
+</dict>
+</plist>

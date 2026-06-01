@@ -1,0 +1,122 @@
+{
+  "project_info": {
+    "project_number": "879057736072",
+    "project_id": "camino-57345",
+    "storage_bucket": "camino-57345.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879057736072:android:451189b6319b0b3be66a3d",
+        "android_client_info": {
+          "package_name": "com.pilgrims"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879057736072-avrs3q6o037pbi8sgb8gi7iejvkivtpd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pilgrims",
+            "certificate_hash": "5dc52d0b1b9d38fc9847475bac3d59fab0f989fc"
+          }
+        },
+        {
+          "client_id": "879057736072-fn3b7ealdfbm6e3orlqqm0meirrlc4tp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pilgrims",
+            "certificate_hash": "1c672f4fd7cef224bd6b9a27a095a7f36d408326"
+          }
+        },
+        {
+          "client_id": "879057736072-krpiukmkjc0umsvegvl3cd6njo1oqcba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDozaK32v97boLUuaFurbpDEixz_8FGUtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879057736072-krpiukmkjc0umsvegvl3cd6njo1oqcba.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "879057736072-rjbffg5bn052ov8o7ju65cl993kldmp8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "-dbigdata.space.arFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879057736072:android:04436b64ad48e852e66a3d",
+        "android_client_info": {
+          "package_name": "com.rurallure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879057736072-1rjg2pgsuaj3vh2p9ko8ju6316enc2hl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rurallure",
+            "certificate_hash": "8659712bfc85d4ad32f3a5eab86a17d431727307"
+          }
+        },
+        {
+          "client_id": "879057736072-jn0u651gcqgv3jvfofh79a6m0fp34s2f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rurallure",
+            "certificate_hash": "c782e559951f30f9878e52b8793f3dd3caf203b4"
+          }
+        },
+        {
+          "client_id": "879057736072-rvo3lbk2km012m9rj17tj14cf8gu0qtb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rurallure",
+            "certificate_hash": "4622100181fd742ea2c691b347dabff53895d1a0"
+          }
+        },
+        {
+          "client_id": "879057736072-krpiukmkjc0umsvegvl3cd6njo1oqcba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDozaK32v97boLUuaFurbpDEixz_8FGUtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879057736072-krpiukmkjc0umsvegvl3cd6njo1oqcba.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "879057736072-rjbffg5bn052ov8o7ju65cl993kldmp8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "-dbigdata.space.arFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
