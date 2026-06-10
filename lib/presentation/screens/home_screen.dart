@@ -55,7 +55,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     // En Android siempre comprobamos (sesión ya iniciada o recién logado).
     // En el resto de plataformas solo si viene del flujo de login.
     final bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
-    if (isAndroid || HomeScreen.pendingRateCheck) {
+    final bool isIos = !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
+    if (isAndroid || isIos || HomeScreen.pendingRateCheck) {
       HomeScreen.pendingRateCheck = false;
       _checkRateNotification();
     }
