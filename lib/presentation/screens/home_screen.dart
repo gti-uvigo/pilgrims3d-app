@@ -146,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       HapticService().medium();
                       context.push('/events');
                     },
-                    child: const Icon(Icons.star, color: Colors.white),
+                    child: const Icon(Icons.calendar_month, color: Colors.white),
                   ),
                 ],
               ),

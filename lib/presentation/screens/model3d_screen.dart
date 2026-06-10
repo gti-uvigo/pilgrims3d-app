@@ -5,8 +5,10 @@ import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:pilgrims_3d/services/model3d/model_cache_service.dart';
 import 'package:pilgrims_3d/services/haptic/haptic_service.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pilgrims_3d/core/config/env.dart';
+import 'package:pilgrims_3d/presentation/providers/locale_provider.dart';
 
 class ModelViewerScreen extends StatefulWidget {
   final String modelUrl;
@@ -67,17 +69,15 @@ class _ModelViewerScreenState extends State<ModelViewerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // We'll use localized strings via LocaleProvider when available
-    // ignore: unused_local_variable
-    // final localeProvider = context.read<LocaleProvider>();
+    final localeProvider = Provider.of<LocaleProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Visor de Modelo 3D'),
+        title: Text(localeProvider.translate('model_viewer_title')),
         centerTitle: true,
         actions: [
           if (_localModelPath != null && !_isLoading)
             IconButton(
-              tooltip: 'Abrir en visor 3D Rooom',
+              tooltip: localeProvider.translate('open_in_rooom'),
               icon: const Icon(Icons.threed_rotation),
               onPressed: () async {
                 final uri = Uri.parse(
