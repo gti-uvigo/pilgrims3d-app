@@ -16,6 +16,10 @@ import 'package:pilgrims_3d/services/haptic/haptic_service.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  /// Actívalo desde el flujo de login para que HomeScreen muestre el banner
+  /// una sola vez al llegar a la pantalla principal.
+  static bool pendingRateCheck = false;
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -48,6 +52,37 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    // En Android siempre comprobamos (sesión ya iniciada o recién logado).
+    // En el resto de plataformas solo si viene del flujo de login.
+    final bool isAndroid = !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+    if (isAndroid || HomeScreen.pendingRateCheck) {
+      HomeScreen.pendingRateCheck = false;
+      _checkRateNotification();
+    }
+  }
+
+  Future<void> _checkRateNotification() async {
+    final show = await api.check_show_rate_notification();
+    if (!show || !mounted) return;
+    // Pequeño delay para que la UI esté completamente renderizada
+    await Future.delayed(const Duration(seconds: 2));
+    if (!mounted) return;
+    _showRateBanner();
+  }
+
+  void _showRateBanner() {
+    final overlay = Overlay.of(context);
+    late OverlayEntry entry;
+    entry = OverlayEntry(
+      builder: (ctx) => _RateUsBanner(
+        onTap: () {
+          entry.remove();
+          context.push('/survey');
+        },
+        onDismiss: () => entry.remove(),
+      ),
+    );
+    overlay.insert(entry);
   }
 
   Future<void> _getCurrentLocation() async {
@@ -211,6 +246,138 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               },
             );
           }).toList(),
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Banner de valoración
+// ---------------------------------------------------------------------------
+
+class _RateUsBanner extends StatefulWidget {
+  const _RateUsBanner({required this.onTap, required this.onDismiss});
+  final VoidCallback onTap;
+  final VoidCallback onDismiss;
+
+  @override
+  State<_RateUsBanner> createState() => _RateUsBannerState();
+}
+
+class _RateUsBannerState extends State<_RateUsBanner>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<Offset> _slide;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 1.5),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _ctrl.forward();
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _dismiss() async {
+    await _ctrl.reverse();
+    widget.onDismiss();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final loc = context.watch<LocaleProvider>();
+    return Positioned(
+      bottom: MediaQuery.of(context).padding.bottom + 16,
+      left: 16,
+      right: 16,
+      child: SlideTransition(
+        position: _slide,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.25),
+                  blurRadius: 12,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.star_rate_rounded,
+                  color: theme.colorScheme.primary,
+                  size: 32,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        loc.translate('rate_us_banner_title'),
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.colorScheme.onPrimaryContainer,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        loc.translate('rate_us_banner_body'),
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.onPrimaryContainer
+                              .withOpacity(0.8),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                FilledButton(
+                  onPressed: widget.onTap,
+                  style: FilledButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 8,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: Text(loc.translate('rate_us_rate_btn')),
+                ),
+                const SizedBox(width: 4),
+                IconButton(
+                  icon: Icon(
+                    Icons.close,
+                    size: 18,
+                    color: theme.colorScheme.onPrimaryContainer,
+                  ),
+                  onPressed: _dismiss,
+                  tooltip: loc.translate('Close'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

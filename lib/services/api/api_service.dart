@@ -1215,6 +1215,61 @@ Future<dynamic> rate_route(
   return jsonDecode(response.body)["data"];
 }
 
+/// Envía la encuesta de valoración al backend.
+/// Devuelve true si el servidor respondió con 200, false en caso contrario.
+Future<bool> send_survey(Map<String, dynamic> surveyData) async {
+  final String url = "$baseUrl/rate_us";
+  bool token = await _ensureIdToken();
+  if (!token) {
+    idToken = "unknown_user";
+  }
+  final body = {
+    "user_id": idToken,
+    ...surveyData,
+  };
+  final response = await makeRequestWithRetry(
+    () => http.post(
+      Uri.parse(url),
+      body: jsonEncode(body),
+      headers: {'Content-Type': 'application/json'},
+    ),
+  );
+  if (response != null && response.statusCode == 200) {
+    print('Encuesta enviada correctamente.');
+    return true;
+  }
+  print('Error enviando encuesta: ${response?.statusCode} ${response?.body}');
+  return false;
+}
+
+/// Consulta al backend si se debe mostrar la notificación de valoración.
+/// Devuelve true si el backend indica que hay que mostrarla.
+Future<bool> check_show_rate_notification() async {
+  final String url = "$baseUrl/show_rate_us_notification";
+  print('Consultando si se debe mostrar la notificación de valoración para el usuario $idToken');
+  await _ensureIdToken();
+  final body = <String, dynamic>{
+    if (idToken.isNotEmpty) "user_id": idToken,
+  };
+  final response = await makeRequestWithRetry(
+    () => http.post(
+      Uri.parse(url),
+      body: jsonEncode(body),
+      headers: {'Content-Type': 'application/json'},
+    ),
+  );
+  if (response != null && response.statusCode == 200) {
+    final decoded = jsonDecode(response.body);
+    final data = decoded['data'];
+    print('Respuesta del backend para notificación de valoración: $data');
+    if (data is Map) {
+      return data['show_notification'] == true;
+    }
+    return false;
+  }
+  return false;
+}
+
 Future<List<dynamic>> get_route_reviews(String routeId) async {
   await _ensureIdToken();
   final String url = "$baseUrl/get_route_reviews";

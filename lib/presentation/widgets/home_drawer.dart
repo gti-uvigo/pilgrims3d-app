@@ -219,6 +219,20 @@ class HomeDrawer extends StatelessWidget {
                     ),
                   ),
                 ],
+                // --- Valóranos ---
+                _SectionHeader(title: localeProvider.translate('survey_section')),
+                _DrawerItem(
+                  child: ListTile(
+                    leading: const Icon(Icons.star_rate_outlined),
+                    title: Text(localeProvider.translate('survey_button')),
+                    onTap: () {
+                      HapticService().medium();
+                      Navigator.pop(context);
+                      context.push('/survey');
+                    },
+                  ),
+                ),
+
                 const SizedBox(height: 80),
               ],
             ),

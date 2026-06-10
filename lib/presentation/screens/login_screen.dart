@@ -11,6 +11,7 @@ import 'package:pilgrims_3d/services/haptic/haptic_service.dart';
 import 'package:pilgrims_3d/core/config/theme.dart';
 import 'package:pilgrims_3d/presentation/widgets/sponsors_logos.dart';
 import 'package:pilgrims_3d/core/config/routes.dart';
+import 'package:pilgrims_3d/presentation/screens/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -28,6 +29,7 @@ class LoginScreen extends StatelessWidget {
       await haptic.success();
       // Mostramos el aviso y solo después navegamos a la home.
       await showDisclaimerDialog(context);
+      HomeScreen.pendingRateCheck = true;
       context.go('/');
       return null;
     } else {

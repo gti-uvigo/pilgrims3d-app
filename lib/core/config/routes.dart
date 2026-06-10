@@ -28,6 +28,7 @@ import '../../presentation/screens/login_screen.dart';
 import '../../presentation/screens/terms_screen.dart';
 import '../../presentation/screens/privacy_policy_screen.dart';
 import '../../presentation/screens/delete_account_screen.dart';
+import '../../presentation/screens/survey_screen.dart';
 
 /// Global Navigator Key para acceder al contexto desde cualquier lugar
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -102,6 +103,12 @@ class AppRouter {
         path: '/about',
         name: 'about',
         builder: (context, state) => const AboutScreen(),
+      ),
+
+      GoRoute(
+        path: '/survey',
+        name: 'survey',
+        builder: (context, state) => const SurveyScreen(),
       ),
 
       GoRoute(
