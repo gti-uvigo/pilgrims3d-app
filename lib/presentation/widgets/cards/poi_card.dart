@@ -27,6 +27,7 @@ class PoiCard extends StatefulWidget {
   final VoidCallback onFlip;
   final bool showHint;
   final Key? frontCardKey;
+  final bool showModel3dButton;
 
   const PoiCard({
     super.key,
@@ -41,6 +42,7 @@ class PoiCard extends StatefulWidget {
     required this.onFlip,
     required this.showHint,
     this.frontCardKey,
+    this.showModel3dButton = true,
   });
 
   @override
@@ -138,7 +140,7 @@ class _PoiCardState extends State<PoiCard> {
               },
             ),
           ),
-          if (hasZenodo && !widget.isFlipped)
+          if (hasZenodo && !widget.isFlipped && widget.showModel3dButton)
             Positioned(
               bottom: 38,
               right: 38,
@@ -378,6 +380,37 @@ class _PoiCardState extends State<PoiCard> {
               ),
             ),
           ),
+          if (!widget.showModel3dButton && (poi['zenodo_url'] as String?) != null && (poi['zenodo_url'] as String).isNotEmpty)
+            Positioned(
+              bottom: 14,
+              right: 14,
+              child: IgnorePointer(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.55),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white.withOpacity(0.35), width: 1),
+                  ),
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.view_in_ar, size: 14, color: Colors.white),
+                      SizedBox(width: 5),
+                      Text(
+                        '3D',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );
